@@ -1,0 +1,15 @@
+{
+    "Host" : "網址",
+    "APIKey" : "唯一值",
+    "Prepare" : {
+        "Action" : "/AAA/BBB",
+        "Content" : {
+            "Name" : "abc",
+            "Password" : "123"
+        }
+    },
+    "Task" : [{
+        "Action" : "/CCC/DDD",
+        "Content" : {}
+    }]
+}
