@@ -24,5 +24,5 @@ func main() {
 	tmp["Timestamp"] = time.Now().Unix()
 	tmp["Sign"] = utils.GenSign(tmp, setting.APIKey)
 
-	api.ReqAuth(setting.Host, toJSON(tmp))
+	api.ReqAuth(setting.Host+setting.Prepare.Action, toJSON(tmp))
 }

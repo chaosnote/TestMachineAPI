@@ -6,10 +6,10 @@ import (
 	"os/exec"
 )
 
-func ReqAuth(host, body string) map[string]interface{} {
+func ReqAuth(addr, body string) map[string]interface{} {
 	cmd_statement := exec.Command(
 		"curl", "-s",
-		"-X", "POST", host,
+		"-X", "POST", addr,
 		"-d", body,
 	)
 	fmt.Println("Auth\n", cmd_statement.String())
