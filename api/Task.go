@@ -10,7 +10,7 @@ func ReqTask(host, action, token, body string) map[string]interface{} {
 	cmd_statement := exec.Command(
 		"curl", "-s",
 		"-X", "POST", fmt.Sprintf("%s%s", host, action),
-		"-H", fmt.Sprintf(`Token=%s`, token),
+		"-H", fmt.Sprintf(`Token: %s`, token),
 		"-d", body,
 	)
 	fmt.Printf("\nAction:\n\t%s\n%s", action, cmd_statement.String())
