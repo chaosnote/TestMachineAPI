@@ -12,12 +12,14 @@ func ReqAuth(addr, body string) map[string]interface{} {
 		"-X", "POST", addr,
 		"-d", body,
 	)
-	fmt.Println("Auth\n", cmd_statement.String())
+	fmt.Println("Auth:\n", cmd_statement.String())
 
 	output, err := cmd_statement.Output()
 	if err != nil {
 		panic(err)
 	}
+
+	fmt.Println("Response:\n", string(output))
 
 	var data map[string]interface{}
 	err = json.Unmarshal(output, &data)
