@@ -35,6 +35,9 @@ func ReqTask(host, action, token, body string) any {
 
 	var content []byte
 	content, err = json.MarshalIndent(data, "", "  ")
+	if err != nil {
+		panic(err)
+	}
 	fmt.Println(string(content))
 
 	return data
