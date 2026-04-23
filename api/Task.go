@@ -1,7 +1,6 @@
 package api
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"os/exec"
@@ -22,16 +21,21 @@ func ReqTask(host, action, token, body string) any {
 		panic(err)
 	}
 
-	var pretty_json bytes.Buffer
-	err = json.Indent(&pretty_json, output, "", "  ")
+	// 顯示符合，但 Unicode 值未處理
+	// var pretty_json bytes.Buffer
+	// err = json.Indent(&pretty_json, output, "", "  ")
 
-	fmt.Println("\nResponse:\n", pretty_json.String())
+	fmt.Println("\nResponse:")
 
 	var data any
-	// err = json.Unmarshal(output, &data)
-	// if err != nil {
-	// 	panic(err)
-	// }
+	err = json.Unmarshal(output, &data)
+	if err != nil {
+		panic(err)
+	}
+
+	var content []byte
+	content, err = json.MarshalIndent(data, "", "  ")
+	fmt.Println(string(content))
 
 	return data
 }
