@@ -6,13 +6,14 @@ import (
 	"os/exec"
 )
 
-func ReqAuth(addr, body string) map[string]interface{} {
+func ReqTask(host, action, token, body string) map[string]interface{} {
 	cmd_statement := exec.Command(
 		"curl", "-s",
-		"-X", "POST", addr,
+		"-X", "POST", fmt.Sprintf("%s%s", host, action),
+		"-H", fmt.Sprintf(`Token=%s`, token),
 		"-d", body,
 	)
-	fmt.Println("\nAuth:\n", cmd_statement.String())
+	fmt.Printf("\n%s:\n%s", action, cmd_statement.String())
 
 	output, err := cmd_statement.Output()
 	if err != nil {

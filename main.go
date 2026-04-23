@@ -9,6 +9,10 @@ import (
 	"idv/chris/utils"
 )
 
+const (
+	OK string = "OK"
+)
+
 func toJSON(source any) string {
 	content, err := json.Marshal(source)
 	if err != nil {
@@ -24,5 +28,23 @@ func main() {
 	tmp["Timestamp"] = time.Now().Unix()
 	tmp["Sign"] = utils.GenSign(tmp, setting.APIKey)
 
-	api.ReqAuth(setting.Host+setting.Prepare.Action, toJSON(tmp))
+	auth_res := api.ReqAuth(setting.Host+setting.Prepare.Action, toJSON(tmp))
+	status := auth_res["Status"]
+	if status != OK {
+		panic(status)
+	}
+	token := auth_res["Token"].(string)
+
+	for _, v := range setting.Task {
+		tmp := v.Content
+		tmp["Timestamp"] = time.Now().Unix()
+		tmp["Sign"] = utils.GenSign(tmp, setting.APIKey)
+
+		api.ReqTask(
+			setting.Host,
+			v.Action,
+			token,
+			toJSON(tmp),
+		)
+	}
 }
