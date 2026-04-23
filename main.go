@@ -37,6 +37,10 @@ func main() {
 
 	for _, v := range setting.Task {
 		tmp := v.Content
+		active_flag := tmp["Active"].(bool)
+		if !active_flag {
+			continue
+		}
 		tmp["Timestamp"] = time.Now().Unix()
 		tmp["Sign"] = utils.GenSign(tmp, setting.APIKey)
 
