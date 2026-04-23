@@ -33,7 +33,7 @@ func main() {
 	if status != OK {
 		panic(status)
 	}
-	token := auth_res["Token"].(string)
+	token := auth_res["Data"].(map[string]interface{})["Token"].(string)
 
 	for _, v := range setting.Task {
 		tmp := v.Content
