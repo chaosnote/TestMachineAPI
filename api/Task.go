@@ -7,7 +7,7 @@ import (
 )
 
 func ReqTask(host, action, token, body string) any {
-	fmt.Printf("\n===== Action(%s) =====\n", action)
+	fmt.Printf("\n\n===== Action(%s) =====\n\n", action)
 	cmd_statement := exec.Command(
 		"curl", "-s",
 		"-X", "POST", fmt.Sprintf("%s%s", host, action),
