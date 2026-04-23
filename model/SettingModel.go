@@ -30,6 +30,7 @@ type Prepare struct {
 
 type Task struct {
 	Action  string                 `json:"Action"`
+	Active  bool                   `json:"Active"`
 	Content map[string]interface{} `json:"Content"`
 }
 

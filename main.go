@@ -36,11 +36,10 @@ func main() {
 	token := auth_res["Data"].(map[string]interface{})["Token"].(string)
 
 	for _, v := range setting.Task {
-		tmp := v.Content
-		active_flag := tmp["Active"].(bool)
-		if !active_flag {
+		if !v.Active {
 			continue
 		}
+		tmp := v.Content
 		tmp["Timestamp"] = time.Now().Unix()
 		tmp["Sign"] = utils.GenSign(tmp, setting.APIKey)
 
