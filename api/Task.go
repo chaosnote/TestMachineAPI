@@ -13,14 +13,14 @@ func ReqTask(host, action, token, body string) map[string]interface{} {
 		"-H", fmt.Sprintf(`Token=%s`, token),
 		"-d", body,
 	)
-	fmt.Printf("\n%s:\n%s", action, cmd_statement.String())
+	fmt.Printf("\nAction:\n\t%s\n%s", action, cmd_statement.String())
 
 	output, err := cmd_statement.Output()
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println("Response:\n", string(output))
+	fmt.Println("\nResponse:\n", string(output))
 
 	var data map[string]interface{}
 	err = json.Unmarshal(output, &data)
