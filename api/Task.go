@@ -1,12 +1,13 @@
 package api
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"os/exec"
 )
 
-func ReqTask(host, action, token, body string) map[string]interface{} {
+func ReqTask(host, action, token, body string) any {
 	fmt.Printf("\n===== Action(%s) =====\n", action)
 	cmd_statement := exec.Command(
 		"curl", "-s",
@@ -21,12 +22,16 @@ func ReqTask(host, action, token, body string) map[string]interface{} {
 		panic(err)
 	}
 
-	fmt.Println("\nResponse:\n", string(output))
+	var pretty_json bytes.Buffer
+	err = json.Indent(&pretty_json, output, "", "  ")
 
-	var data map[string]interface{}
-	err = json.Unmarshal(output, &data)
-	if err != nil {
-		panic(err)
-	}
+	fmt.Println("\nResponse:\n", pretty_json.String())
+
+	var data any
+	// err = json.Unmarshal(output, &data)
+	// if err != nil {
+	// 	panic(err)
+	// }
+
 	return data
 }
