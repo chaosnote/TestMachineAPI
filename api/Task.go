@@ -25,7 +25,7 @@ func ReqTask(host, action, token, body string) any {
 	// var pretty_json bytes.Buffer
 	// err = json.Indent(&pretty_json, output, "", "  ")
 
-	fmt.Println("\nBeforeJSON:\n" + string(output))
+	fmt.Printf("\nBeforeJSON:\n%s\n" + string(output))
 
 	var data any
 	err = json.Unmarshal(output, &data)
