@@ -25,7 +25,7 @@ func ReqTask(host, action, token, body string) any {
 	// var pretty_json bytes.Buffer
 	// err = json.Indent(&pretty_json, output, "", "  ")
 
-	fmt.Println("\nResponse:")
+	fmt.Println("\nBeforeJSON:\n" + string(output))
 
 	var data any
 	err = json.Unmarshal(output, &data)
@@ -38,6 +38,7 @@ func ReqTask(host, action, token, body string) any {
 	if err != nil {
 		panic(err)
 	}
+	fmt.Println("\nResponse:")
 	fmt.Println(string(content))
 
 	return data
