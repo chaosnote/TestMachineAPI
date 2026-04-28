@@ -49,5 +49,7 @@ func main() {
 			token,
 			toJSON(tmp),
 		)
+
+		time.Sleep(time.Second)
 	}
 }
