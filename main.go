@@ -50,6 +50,6 @@ func main() {
 			toJSON(tmp),
 		)
 
-		time.Sleep(time.Second)
+		time.Sleep(4 * time.Second)
 	}
 }
