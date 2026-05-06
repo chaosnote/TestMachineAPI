@@ -25,7 +25,6 @@ func ReqTask(host, action, token, body string) any {
 ===== BODY =====
 %s
 ===== RESPONSE =====
-
 `
 
 	defer func() {
@@ -53,7 +52,7 @@ func ReqTask(host, action, token, body string) any {
 
 	fmt.Printf("\nBeforeJSON:\n%s\n", string(output))
 
-	var data any
+	var data map[string]interface{}
 	err = json.Unmarshal(output, &data)
 	if err != nil {
 		panic(err)
@@ -66,7 +65,10 @@ func ReqTask(host, action, token, body string) any {
 	}
 	fmt.Println("\nResponse:")
 	fmt.Println(string(content))
-	log_msg += string(content)
+
+	for key, value := range data {
+		log_msg += fmt.Sprintf("[%s] %v\n", key, value)
+	}
 
 	return data
 }
