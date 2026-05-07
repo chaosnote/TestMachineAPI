@@ -1,6 +1,7 @@
 package api
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"idv/chris/utils"
@@ -46,11 +47,6 @@ func ReqTask(host, action, token, body string) any {
 	if err != nil {
 		panic(err)
 	}
-
-	// 顯示符合，但 Unicode 值未處理
-	// var pretty_json bytes.Buffer
-	// err = json.Indent(&pretty_json, output, "", "  ")
-
 	fmt.Printf("\nBeforeJSON:\n%s\n", string(output))
 
 	var data map[string]interface{}
@@ -58,17 +54,18 @@ func ReqTask(host, action, token, body string) any {
 	if err != nil {
 		panic(err)
 	}
-	for key, value := range data {
-		log_msg += fmt.Sprintf("[%s]\t%v\n", key, value)
-	}
 
-	var content []byte
-	content, err = json.MarshalIndent(data, "", "  ")
-	if err != nil {
-		panic(err)
-	}
+	buf := new(bytes.Buffer)
+	encoder := json.NewEncoder(buf)
+	encoder.SetIndent("", "  ")
+	encoder.SetEscapeHTML(false)
+	encoder.Encode(data)
+
 	fmt.Println("\nResponse:")
-	fmt.Println(string(content))
+	content := buf.String()
+	fmt.Println(content)
+
+	log_msg += content
 
 	return data
 }
