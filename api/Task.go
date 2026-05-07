@@ -30,7 +30,7 @@ func ReqTask(host, action, token, body string) any {
 
 	defer func() {
 		file_name := strings.ReplaceAll(action, "/", "_")
-		utils.FileWriteAppend(filepath.Join("./", dir_path), file_name+".txt", []byte(log_msg))
+		utils.FileWriteAppend(filepath.Join("./dist", dir_path), file_name+".txt", []byte(log_msg))
 	}()
 
 	fmt.Printf("\n\n===== Action(%s) =====\n\n", action)
