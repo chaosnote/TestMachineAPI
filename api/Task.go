@@ -58,6 +58,9 @@ func ReqTask(host, action, token, body string) any {
 	if err != nil {
 		panic(err)
 	}
+	for key, value := range data {
+		log_msg += fmt.Sprintf("[%s]\t%v\n", key, value)
+	}
 
 	var content []byte
 	content, err = json.MarshalIndent(data, "", "  ")
@@ -66,10 +69,6 @@ func ReqTask(host, action, token, body string) any {
 	}
 	fmt.Println("\nResponse:")
 	fmt.Println(string(content))
-
-	for key, value := range data {
-		log_msg += fmt.Sprintf("[%s] %v\n", key, value)
-	}
 
 	return data
 }
