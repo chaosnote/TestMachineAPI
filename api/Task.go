@@ -26,10 +26,11 @@ func ReqTask(host, action, token, body string) any {
 %s
 ===== RESPONSE =====
 `
+	log_msg = fmt.Sprintf(log_msg, action, body)
 
 	defer func() {
 		file_name := strings.ReplaceAll(action, "/", "_")
-		utils.FileWriteAppend(filepath.Join("./", dir_path), file_name+".txt", []byte(fmt.Sprintf(log_msg, action, body)))
+		utils.FileWriteAppend(filepath.Join("./", dir_path), file_name+".txt", []byte(log_msg))
 	}()
 
 	fmt.Printf("\n\n===== Action(%s) =====\n\n", action)
